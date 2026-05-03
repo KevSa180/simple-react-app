@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const loadProducts = async () => {
       const data = await fetchProducts();
-      setProducts(data);
+      setProducts(data?.content || data || []);
       setLoading(false);
     };
     loadProducts();
@@ -22,8 +22,14 @@ function App() {
       {loading ? (
         <p style={{ textAlign: "center" }}>Cargando productos...</p>
       ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-          {products.map(product => (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
